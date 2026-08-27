@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "outDir": ".timer-test-build",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": [
+    "lib/bellPlayback.ts",
+    "lib/timeline.ts",
+    "types/timer.ts",
+    "tests/bellPlayback.test.ts",
+    "tests/timeline.test.ts"
+  ]
+}
