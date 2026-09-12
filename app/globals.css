@@ -2,190 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+:root { color-scheme: dark; --background:#101214; --surface:#17191c; --border:#2d3136; --muted:#969da5; --accent:#d8e2e8; --font-sans:'Helvetica Neue',Arial,sans-serif; --font-mono:var(--font-sans); --font-display:var(--font-sans); }
+* { box-sizing:border-box; }
+html { min-width:320px; background:var(--background); }
+body { margin:0; color:#f3f4f2; background:var(--background); font-family:var(--font-sans); -webkit-font-smoothing:antialiased; }
+button,input { font:inherit; }
+button { cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent; transition:background 150ms,color 150ms,border-color 150ms; }
+button:disabled { cursor:default; opacity:.35; }
+button:focus-visible,input:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+input[type=number] { appearance:textfield; }
+input::-webkit-inner-spin-button,input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+::selection { background:var(--accent); color:var(--background); }
+.app-shell { max-width:1320px; min-height:100svh; margin:auto; padding:0 64px; display:flex; flex-direction:column; }
+.app-topbar { min-height:88px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid var(--border); }
+.brand { display:flex; align-items:center; gap:12px; font-size:16px; font-weight:700; letter-spacing:.18em; }
+.brand-mark { font-size:32px; font-weight:300; color:var(--accent); line-height:1; }
+.brand-caption { margin-left:12px; padding-left:24px; border-left:1px solid var(--border); font-size:12px; font-weight:500; letter-spacing:.12em; color:var(--muted); }
+.topbar-detail { color:var(--muted); font-size:12px; letter-spacing:.12em; }
+.utility-nav { display:flex; gap:36px; min-height:66px; border-bottom:1px solid var(--border); }
+.utility-nav button { position:relative; background:none; border:0; padding:18px 0; font-size:12px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
+.utility-nav button:hover { color:#fff; }
+.utility-nav button[aria-current=page] { color:#f3f4f2; }
+.utility-nav button[aria-current=page]:after { content:''; position:absolute; height:2px; background:var(--accent); bottom:-1px; left:0; right:0; }
+.nav-short { display:none; }
+.app-content { flex:1; padding:50px 20px 56px; display:flex; flex-direction:column; justify-content:center; }
+.training-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,380px); align-items:center; gap:clamp(36px,6vw,96px); }
+.training-stage { grid-column:1; grid-row:1; display:flex; flex-direction:column; align-items:center; min-width:0; text-align:center; --phase-color:var(--accent); }
+.stage-rest { --phase-color:#c69b72; }
+.phase-label { display:flex; align-items:center; gap:9px; min-height:20px; color:var(--phase-color); font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.16em; }
+.phase-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+.timer-dial { width:min(100%,390px,47svh); margin:20px 0 18px; }
+.timer-center { position:relative; z-index:1; width:88%; height:88%; border-radius:50%; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+.time-digits { white-space:nowrap; color:#f3f4f2; font-family:var(--font-sans); font-size:25cqw; line-height:1; font-weight:300; letter-spacing:-.055em; font-variant-numeric:tabular-nums; }
+.time-digits--hours { font-size:18cqw; }
+.stage-rest .time-digits { color:var(--phase-color); }
+.timer-unit { margin-top:16px; color:var(--muted); font-size:12px; letter-spacing:.13em; text-transform:uppercase; }
+.round-context { margin:0; font-size:21px; font-weight:500; letter-spacing:-.02em; }
+.session-caption { margin:10px 0 26px; color:var(--muted); font-size:13px; line-height:1.5; }
+.timer-actions { display:grid; grid-template-columns:1.4fr 1fr; gap:12px; width:min(100%,340px); }
+.timer-actions button { min-height:52px; display:flex; align-items:center; justify-content:center; gap:9px; border-radius:4px; padding:12px; font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+.timer-actions svg { width:15px; height:15px; }
+.action-primary { background:var(--accent); color:#101214; border:1px solid var(--accent); }
+.action-primary:hover:not(:disabled) { background:#f2f5f6; border-color:#f2f5f6; }
+.action-reset { color:#b1b8c0; background:transparent; border:1px solid #3c424a; }
+.action-reset:hover:not(:disabled) { color:#fff; background:#1b1e22; border-color:#717a84; }
+.timer-actions button:active:not(:disabled),.number-control button:active:not(:disabled) { transform:translateY(1px); }
+.training-config { grid-column:2; grid-row:1; min-width:0; padding:28px; border:1px solid var(--border); border-radius:5px; background:var(--surface); }
+.panel-heading { padding-bottom:24px; border-bottom:1px solid var(--border); }
+.eyebrow { font-size:12px; color:var(--muted); font-weight:500; letter-spacing:.12em; text-transform:uppercase; }
+.panel-heading h2 { margin:10px 0 0; font-size:22px; font-weight:500; letter-spacing:-.025em; }
+.config-fields { padding:8px 0 22px; }
+.setting-row { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:80px; border-bottom:1px solid #292d32; }
+.setting-row > label,.setting-row > span { color:#b2b8bf; font-size:14px; }
+.number-control { display:flex; align-items:center; gap:4px; flex-shrink:0; }
+.number-control button { width:42px; height:48px; border:1px solid transparent; border-radius:4px; background:transparent; color:#a7afb8; font-size:22px; font-weight:300; }
+.number-control button:hover:not(:disabled) { background:#24282d; border-color:#353c44; color:#fff; }
+.number-value { display:flex; align-items:baseline; justify-content:center; width:64px; gap:3px; }
+.number-value input { width:40px; }
+.number-value span { font-size:12px; color:var(--muted); }
+.number-control input { padding:8px 0; border:0; border-radius:2px; text-align:center; color:#f3f4f2; background:transparent; font-size:18px; font-weight:500; font-variant-numeric:tabular-nums; }
+.duration-value { display:flex; align-items:center; justify-content:center; width:64px; }
+.duration-value input { width:28px; }
+.duration-value > span { color:var(--muted); }
+.field-note { margin:20px 0 0; color:var(--muted); font-size:13px; line-height:1.7; }
+.panel-footer { display:flex; align-items:center; gap:8px; padding-top:18px; border-top:1px solid var(--border); color:var(--muted); font-size:12px; }
+.status-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.config-error { color:#edaaa2; font-size:13px; line-height:1.5; margin:0 0 18px; }
+.session-summary { min-height:248px; padding:28px 0; }
+.session-summary p { font-size:20px; font-weight:400; line-height:1.7; margin:18px 0; }
+.session-summary > span:last-child { font-size:13px; color:var(--muted); }
+.open-note { padding:30px 0; margin:0; font-size:18px; line-height:1.8; }
+.open-note span { display:block; margin-top:8px; font-size:14px; color:var(--muted); }
+.stopwatch-display { display:flex; align-items:baseline; gap:5px; }
+.stopwatch-display .time-digits { font-size:22cqw; }
+.time-fraction { font-size:6cqw; color:var(--muted); font-weight:400; font-variant-numeric:tabular-nums; }
+.app-footer { display:flex; justify-content:space-between; gap:16px; border-top:1px solid var(--border); padding:22px 0; color:#9299a1; font-size:11px; letter-spacing:.12em; }
+.footer-divider { margin:0 8px; color:#525a63; }
+@media (min-width:1500px) { .timer-dial { width:min(100%,440px,50svh); } }
+@media (max-width:1050px) { .app-shell { padding:0 32px; } .app-content { padding:36px 0; } .training-layout { gap:32px; grid-template-columns:minmax(0,1fr) 330px; } .training-config { padding:22px; } .topbar-detail { display:none; } }
+@media (max-width:760px) {
+ .app-shell { padding:0 22px; }
+ .app-topbar { min-height:64px; }
+ .brand { font-size:14px; } .brand-caption { font-size:11px; }
+ .utility-nav { gap:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); min-height:54px; }
+ .utility-nav button { font-size:11px; letter-spacing:.025em; padding:16px 0; }
+ .nav-full { display:none; } .nav-short { display:inline; }
+ .app-content { padding:26px 0 32px; justify-content:flex-start; }
+ .training-layout { grid-template-columns:minmax(0,1fr); gap:28px; }
+ .training-stage { grid-column:1; grid-row:1; }
+ .training-config { grid-column:1; grid-row:2; width:100%; max-width:480px; justify-self:center; padding:20px; }
+ .timer-dial { width:min(74vw,32svh,300px); margin:12px 0; }
+ .timer-unit { font-size:11px; margin-top:12px; }
+ .round-context { font-size:19px; }
+ .session-caption { margin:6px 0 18px; font-size:12px; }
+ .timer-actions { max-width:340px; }
+ .panel-heading { padding-bottom:16px; } .panel-heading h2 { font-size:20px; margin-top:6px; }
+ .setting-row { min-height:64px; }
+ .config-fields { padding:2px 0 16px; }
+ .panel-footer { padding-top:14px; }
+ .session-summary { min-height:170px; }
+ .app-footer { font-size:10px; letter-spacing:.06em; }
 }
-
-* {
-  box-sizing: border-box;
+@media (max-width:359px) { .app-shell { padding:0 14px; } .brand-caption { margin-left:4px; padding-left:12px; } .training-config { padding:16px; } .app-footer > span:last-child { display:none; } .setting-row > span { max-width:100px; } }
+@media (orientation:landscape) and (max-height:600px) and (min-width:480px) and (max-width:1023px) {
+ .app-topbar { min-height:42px; } .brand-caption { display:none; }
+ .utility-nav { min-height:44px; } .utility-nav button { padding:12px 0; }
+ .app-content { padding:16px 0; }
+ .training-layout { grid-template-columns:minmax(0,1fr) minmax(250px,.9fr); gap:22px; }
+ .training-config { grid-column:2; grid-row:1; padding:16px; }
+ .timer-dial { width:min(36vw,43svh); margin:4px 0; }
+ .timer-unit { font-size:10px; margin-top:8px; }
+ .phase-label { font-size:11px; } .round-context { font-size:17px; }
+ .session-caption { margin:4px 0 12px; }
+ .timer-actions button { min-height:48px; }
+ .panel-heading { padding-bottom:12px; } .panel-heading h2 { font-size:18px; }
+ .setting-row { min-height:56px; } .setting-row > label,.setting-row > span { font-size:13px; }
+ .number-control button { width:34px; } .panel-footer { font-size:11px; }
+ .app-footer { display:none; }
 }
-
-html {
-  min-width: 320px;
-  background: #08090b;
-}
-
-body {
-  min-height: 100vh;
-  margin: 0;
-  background: #08090b;
-  color: #f7f7f5;
-  font-family: var(--font-sans), Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button,
-a,
-input {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  touch-action: manipulation;
-}
-
-button:focus-visible,
-input:focus-visible {
-  outline: 2px solid #dcff52;
-  outline-offset: 3px;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  margin: 0;
-  appearance: none;
-}
-
-input[type="number"] {
-  appearance: textfield;
-}
-
-::selection {
-  background: #dcff52;
-  color: #08090b;
-}
-
-.timer-dial {
-  width: min(78vw, 36.5svh, 30rem);
-}
-
-.timer-dial--solo {
-  width: min(84vw, 52svh, 34rem);
-}
-
-@media (max-width: 359px) {
-  .config-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .timer-actions {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (min-width: 640px) {
-  .timer-dial {
-    width: min(58vw, 46svh, 32rem);
-  }
-
-  .timer-dial--solo {
-    width: min(66vw, 58svh, 36rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .timer-dial {
-    width: min(42vw, 55svh, 34rem);
-  }
-
-  .timer-dial--solo {
-    width: min(48vw, 64svh, 38rem);
-  }
-}
-
-@media (orientation: landscape) and (min-width: 480px) and (max-width: 1023px) and (max-height: 600px) {
-  main {
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
-  }
-
-  .app-content {
-    margin-top: 0.25rem;
-    padding: 0.375rem;
-  }
-
-  .app-topbar > div:first-child {
-    display: none;
-  }
-
-  .utility-nav {
-    padding: 0;
-  }
-
-  .tool-header {
-    display: none;
-  }
-
-  .training-layout {
-    grid-template-columns: minmax(12rem, 0.92fr) minmax(13rem, 1.08fr);
-    gap: 0.75rem;
-  }
-
-  .training-config {
-    order: 1;
-    padding: 0.75rem;
-  }
-
-  .training-stage {
-    order: 2;
-    margin-top: -0.25rem;
-  }
-
-  .config-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .number-control {
-    height: 2.75rem;
-  }
-
-  .number-step {
-    width: 1.75rem;
-    height: 2.625rem;
-  }
-
-  .number-input {
-    width: 1.5rem;
-    font-size: 1rem;
-  }
-
-  .timer-dial {
-    width: min(42vw, 53svh, 20rem);
-  }
-
-  .timer-dial--solo {
-    width: min(54vw, 69svh, 25rem);
-  }
-
-  .timer-actions {
-    display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  }
-
-  .timer-actions > button {
-    width: 100%;
-    min-width: 0;
-    border-radius: 0.75rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }

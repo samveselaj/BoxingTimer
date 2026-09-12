@@ -47,12 +47,12 @@ export function TimerControls({
     status === "paused" ? "Resume" : status === "complete" ? "Start again" : startLabel;
 
   return (
-    <div className="timer-actions grid w-full grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
+    <div className="timer-actions">
       <button
         type="button"
         onClick={isRunning ? onPause : onStart}
         disabled={!isRunning && !canStart}
-        className="inline-flex min-h-14 w-full items-center justify-center gap-2.5 rounded-full bg-acid px-4 py-3 text-[0.78rem] font-bold tracking-[-0.005em] text-[#101204] transition-[background-color,transform] hover:bg-[#e7ff76] active:scale-[0.985] active:bg-[#caef40] disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-600 sm:w-auto sm:min-w-52 sm:px-7 sm:text-[0.82rem]"
+        className="action-primary"
       >
         {isRunning ? <PauseIcon /> : <PlayIcon />}
         {isRunning ? "Pause" : primaryLabel}
@@ -61,7 +61,7 @@ export function TimerControls({
         type="button"
         onClick={onReset}
         disabled={status === "idle"}
-        className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full border border-zinc-700 bg-[#15171a] px-3 py-3 text-[0.72rem] font-semibold tracking-[-0.005em] text-zinc-200 transition-[background-color,border-color,transform] hover:border-zinc-500 hover:bg-[#1b1d20] active:scale-[0.985] disabled:cursor-not-allowed disabled:opacity-30 sm:w-auto sm:min-w-32 sm:px-5"
+        className="action-reset"
       >
         <ResetIcon />
         Reset

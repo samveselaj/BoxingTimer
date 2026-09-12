@@ -10,10 +10,10 @@ interface CircularProgressProps {
 
 export function CircularProgress({
   progress,
-  color = "#dcff52",
+  color = "#d8e2e8",
   children,
   label,
-  surfaceColor = "#0b0d0f",
+  surfaceColor = "#101214",
   trackColor = "rgba(255,255,255,0.08)",
   solo = false,
 }: CircularProgressProps) {
@@ -41,7 +41,7 @@ export function CircularProgress({
           r={radius}
           fill="none"
           stroke={trackColor}
-          strokeWidth="2.1"
+          strokeWidth="0.45"
         />
         <circle
           cx="50"
@@ -49,16 +49,15 @@ export function CircularProgress({
           r={radius}
           fill="none"
           stroke={color}
-          strokeWidth="2.8"
+          strokeWidth="0.65"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={circumference * (1 - clampedProgress)}
           className="transition-[stroke-dashoffset,stroke] duration-150 ease-linear"
-          style={{ filter: `drop-shadow(0 0 2.5px ${color}4d)` }}
         />
       </svg>
       <div
-        className="relative z-10 flex h-[83%] w-[83%] flex-col items-center justify-center rounded-full border border-white/[0.045] px-2 text-center shadow-[0_14px_42px_rgba(0,0,0,0.34)] transition-colors duration-300 sm:px-4"
+        className="timer-center"
         style={{ backgroundColor: surfaceColor }}
       >
         {children}
