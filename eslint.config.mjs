@@ -7,7 +7,6 @@ export default defineConfig([
   ...nextTypeScript,
   globalIgnores([
     ".next/**",
-    "corner/**",
     ".timer-test-build/**",
     "out/**",
     "node_modules/**",

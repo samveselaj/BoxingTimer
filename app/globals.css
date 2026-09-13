@@ -80,6 +80,27 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button { -webkit-appe
 .footer-divider { margin:0 8px; color:#525a63; }
 @media (min-width:1500px) { .timer-dial { width:min(100%,440px,50svh); } }
 @media (max-width:1050px) { .app-shell { padding:0 32px; } .app-content { padding:36px 0; } .training-layout { gap:32px; grid-template-columns:minmax(0,1fr) 330px; } .training-config { padding:22px; } .topbar-detail { display:none; } }
+/* Reserve room for navigation, context, controls and footer before sizing the dial.
+   Keep natural overflow for short windows and enlarged text. */
+@media (min-width:761px) {
+ .app-topbar { min-height:clamp(56px,8svh,88px); }
+ .utility-nav { min-height:54px; }
+ .utility-nav button { padding:16px 0; }
+ .app-content { padding:clamp(16px,3svh,36px) 0; }
+ .timer-dial { width:min(100%,440px,max(180px,calc(100svh - 400px))); margin:14px 0; }
+ .session-caption { margin:8px 0 20px; }
+ .app-footer { padding:16px 0; }
+}
+@media (min-width:761px) and (max-height:800px) {
+ .training-config { padding:20px; }
+ .panel-heading { padding-bottom:16px; }
+ .panel-heading h2 { margin-top:6px; }
+ .config-fields { padding:4px 0 16px; }
+ .setting-row { min-height:64px; }
+ .panel-footer { padding-top:14px; }
+ .session-summary { min-height:212px; padding:20px 0; }
+ .field-note { margin-top:14px; }
+}
 @media (max-width:760px) {
  .app-shell { padding:0 22px; }
  .app-topbar { min-height:64px; }
